@@ -1,0 +1,15 @@
+export const message = {
+  FORM_SUBMIT_SUCCESSFULLY: 'Form submit successfully.',
+  NOT_REGISTERED: 'You are not registered.',
+  PLEASE_TRY_AGAIN: 'Please try again.',
+  LOGIN_SUCCESSFULLY: 'login successfully.',
+  NOT_MATCHED: 'does not matched.',
+  ACCOUNT_ACTIVATED: 'Your account is activated.',
+  NOT_ACTIVATED: 'Your account is not activated.',
+  NOT_FOUND: 'not found.',
+  ADDED_SUCCESSFULLY: 'added successfully.',
+  UPDATED_SUCCESSFULLY: 'updated successfully.',
+  VIEW_SUCCESSFULLY: 'view successfully.',
+  LIST_OF_VIEW_SUCCESSFULLY: 'view list of data successfully.',
+  DELETED_SUCCESSFULLY: 'deleted successfully.',
+};
