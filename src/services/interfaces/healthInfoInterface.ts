@@ -6,5 +6,10 @@ export interface HealthInfoInterface {
   company_position: string;
   email: string;
   mobile_no: string;
+}
+
+export interface HealthImagesInterface {
+  id?: number;
+  smeHealthCheckId?: string;
   file: string;
 }

@@ -7,6 +7,7 @@ import { smeHealthCheck } from './models/sme-health-check.model';
 import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { smeHealthCheckImages } from './models/sme-health-check-images.model';
 
 type SupportedDialect = 'postgres';
 
@@ -23,8 +24,8 @@ type SupportedDialect = 'postgres';
       username: process.env.DBUSER,
       password: process.env.DBPASS,
       database: process.env.DBNAME,
-      entities: [smeHealthCheck],
-      synchronize: true,
+      entities: [smeHealthCheck, smeHealthCheckImages],
+      synchronize: true, // Add migration
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', './upload'),

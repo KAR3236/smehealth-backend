@@ -1,12 +1,12 @@
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import { randomName } from './randomNumber.config';
+import { randomAlphaNumeric } from './randomNumber.config';
 
 export const storageConfig = {
   storage: diskStorage({
     destination: './upload',
     filename: (req, file, cb) => {
-      const filename = `${randomName}${extname(file.originalname)}`;
+      const filename = `${randomAlphaNumeric(16)}${extname(file.originalname)}`;
       cb(null, filename);
     },
   }),

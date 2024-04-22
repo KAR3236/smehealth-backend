@@ -3,12 +3,13 @@ import {
   Controller,
   Get,
   Post,
-  UploadedFile,
+  Query,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { SmeHealthCheckService } from './sme-health-check.service';
 import { AddHealthInfoDto } from './dto/addHealthInfo.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { ResponseInterface } from 'src/services/interfaces/commonInterface';
 
 @Controller('sme-health-check')
@@ -17,17 +18,17 @@ export class SmeHealthCheckController {
 
   //Add health-info API.
   @Post('health-info')
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FilesInterceptor('files'))
   registration(
     @Body() addHealthInfoDto: AddHealthInfoDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFiles() files: Array<Express.Multer.File>,
   ): Promise<ResponseInterface> {
-    return this.smeHealthCheckService.addHealthInfo(addHealthInfoDto, file);
+    return this.smeHealthCheckService.addHealthInfo(addHealthInfoDto, files);
   }
 
   //List of health-info API.
   @Get('health-info')
-  viewUser(): Promise<ResponseInterface> {
-    return this.smeHealthCheckService.listOfHealthInfo();
+  viewUser(@Query() listHealthInfoDto: any): Promise<ResponseInterface> {
+    return this.smeHealthCheckService.listOfHealthInfo(listHealthInfoDto);
   }
 }
