@@ -18,12 +18,12 @@ export class SmeHealthCheckController {
 
   //Add health-info API.
   @Post('health-info')
-  @UseInterceptors(FilesInterceptor('files'))
+  @UseInterceptors(FilesInterceptor('file'))
   registration(
     @Body() addHealthInfoDto: AddHealthInfoDto,
-    @UploadedFiles() files: Array<Express.Multer.File>,
+    @UploadedFiles() file: Array<Express.Multer.File>,
   ): Promise<ResponseInterface> {
-    return this.smeHealthCheckService.addHealthInfo(addHealthInfoDto, files);
+    return this.smeHealthCheckService.addHealthInfo(addHealthInfoDto, file);
   }
 
   //List of health-info API.

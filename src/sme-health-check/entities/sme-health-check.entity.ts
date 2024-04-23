@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { smeHealthCheckImages } from './sme-health-check-images.model';
+import { smeHealthCheckImages } from './sme-health-check-images.entity';
 
 @Entity()
 export class smeHealthCheck {
@@ -23,9 +23,6 @@ export class smeHealthCheck {
 
   @Column()
   mobile_no: string;
-
-  @Column({ default: true })
-  isActive: boolean;
 
   @OneToMany(
     () => smeHealthCheckImages,

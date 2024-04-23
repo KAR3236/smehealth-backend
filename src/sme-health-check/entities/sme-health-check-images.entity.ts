@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { smeHealthCheck } from './sme-health-check.model';
+import { smeHealthCheck } from './sme-health-check.entity';
 
 @Entity()
 export class smeHealthCheckImages {

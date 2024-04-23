@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { AddHealthInfoDto } from './dto/addHealthInfo.dto';
-import { smeHealthCheck } from 'src/models/sme-health-check.model';
+import { smeHealthCheck } from './entities/sme-health-check.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { handelResponse } from 'src/services/handleResponse';
@@ -8,7 +8,7 @@ import { message } from 'src/services/messages';
 import { QueryFailedError } from 'typeorm';
 import { ResponseInterface } from 'src/services/interfaces/commonInterface';
 import { HealthInfoInterface } from 'src/services/interfaces/healthInfoInterface';
-import { smeHealthCheckImages } from 'src/models/sme-health-check-images.model';
+import { smeHealthCheckImages } from './entities/sme-health-check-images.entity';
 
 @Injectable()
 export class SmeHealthCheckService {
@@ -21,10 +21,10 @@ export class SmeHealthCheckService {
 
   async addHealthInfo(
     dto: AddHealthInfoDto,
-    files: Array<Express.Multer.File>,
+    file: Array<Express.Multer.File>,
   ): Promise<ResponseInterface> {
     try {
-      if (files.length > 6) {
+      if (file.length > 6) {
         return handelResponse({
           statusCode: 400,
           message: `Exceeded maximum number of files (6)`,
@@ -32,7 +32,7 @@ export class SmeHealthCheckService {
       }
 
       const smeImages: any = await Promise.all(
-        files.map(async (file) => {
+        file.map(async (file) => {
           if (!file.originalname.match(/\.(pdf)$/)) {
             throw new BadRequestException(`Only PDF file is allowed`);
           }
@@ -45,7 +45,7 @@ export class SmeHealthCheckService {
             ...dto,
           });
         const saveSmeImages: any = await Promise.all(
-          files.map(async (file) => {
+          file.map(async (file) => {
             return await this.smeHealthCheckImagesModel.save({
               smeHealthCheckId: smeHealthData.id,
               file: file.filename,
