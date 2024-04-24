@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   Query,
   UploadedFiles,
@@ -28,7 +29,15 @@ export class SmeHealthCheckController {
 
   //List of health-info API.
   @Get('health-info')
-  viewUser(@Query() listHealthInfoDto: any): Promise<ResponseInterface> {
+  listOfHealthInfo(
+    @Query() listHealthInfoDto: any,
+  ): Promise<ResponseInterface> {
     return this.smeHealthCheckService.listOfHealthInfo(listHealthInfoDto);
+  }
+
+  //List of health-info-pdf API.
+  @Get('health-info-pdf/:id')
+  viewHealthInfoPdf(@Param() params: any): Promise<ResponseInterface> {
+    return this.smeHealthCheckService.viewHealthInfoPdf(params);
   }
 }

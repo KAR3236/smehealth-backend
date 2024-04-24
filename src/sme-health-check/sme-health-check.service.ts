@@ -7,7 +7,10 @@ import { handelResponse } from 'src/services/handleResponse';
 import { message } from 'src/services/messages';
 import { QueryFailedError } from 'typeorm';
 import { ResponseInterface } from 'src/services/interfaces/commonInterface';
-import { HealthInfoInterface } from 'src/services/interfaces/healthInfoInterface';
+import {
+  HealthImagesInterface,
+  HealthInfoInterface,
+} from 'src/services/interfaces/healthInfoInterface';
 import { smeHealthCheckImages } from './entities/sme-health-check-images.entity';
 
 @Injectable()
@@ -93,6 +96,28 @@ export class SmeHealthCheckService {
       return handelResponse({
         statusCode: 200,
         message: `SME Health data ${message.VIEW_SUCCESSFULLY}`,
+        data: getHealthInfo,
+      });
+    } catch (error) {
+      return handelResponse({
+        statusCode: 500,
+        message: message.PLEASE_TRY_AGAIN,
+      });
+    }
+  }
+
+  async viewHealthInfoPdf(params: any): Promise<ResponseInterface> {
+    try {
+      const getHealthInfo: HealthImagesInterface[] =
+        await this.smeHealthCheckImagesModel.find({
+          where: {
+            smeHealthCheckId: params.id,
+          },
+        });
+
+      return handelResponse({
+        statusCode: 200,
+        message: `SME Health PDF ${message.VIEW_SUCCESSFULLY}`,
         data: getHealthInfo,
       });
     } catch (error) {

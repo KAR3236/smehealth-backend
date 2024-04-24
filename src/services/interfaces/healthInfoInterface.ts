@@ -10,6 +10,6 @@ export interface HealthInfoInterface {
 
 export interface HealthImagesInterface {
   id?: number;
-  smeHealthCheckId?: string;
+  smeHealthCheckId?: number;
   file: string;
 }

@@ -20,7 +20,7 @@ import { ormConfig } from 'orm.config';
       inject: [ConfigService],
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', './upload'),
+      rootPath: join(__dirname, '../..', './upload'),
     }),
     SmeHealthCheckModule,
   ],
