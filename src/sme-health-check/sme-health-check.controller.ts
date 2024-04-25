@@ -12,6 +12,7 @@ import { SmeHealthCheckService } from './sme-health-check.service';
 import { AddHealthInfoDto } from './dto/addHealthInfo.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ResponseInterface } from 'src/services/interfaces/commonInterface';
+import { ListOfHealthInfoDto } from './dto/listOfHealthInfo.dto';
 
 @Controller('sme-health-check')
 export class SmeHealthCheckController {
@@ -30,7 +31,7 @@ export class SmeHealthCheckController {
   //List of health-info API.
   @Get('health-info')
   listOfHealthInfo(
-    @Query() listHealthInfoDto: any,
+    @Query() listHealthInfoDto: ListOfHealthInfoDto,
   ): Promise<ResponseInterface> {
     return this.smeHealthCheckService.listOfHealthInfo(listHealthInfoDto);
   }

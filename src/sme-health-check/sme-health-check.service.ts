@@ -12,6 +12,7 @@ import {
   HealthInfoInterface,
 } from 'src/services/interfaces/healthInfoInterface';
 import { smeHealthCheckImages } from './entities/sme-health-check-images.entity';
+import { ListOfHealthInfoDto } from './dto/listOfHealthInfo.dto';
 
 @Injectable()
 export class SmeHealthCheckService {
@@ -83,14 +84,24 @@ export class SmeHealthCheckService {
     }
   }
 
-  async listOfHealthInfo(listHealthInfoDto: any): Promise<ResponseInterface> {
+  async listOfHealthInfo(
+    listHealthInfoDto: ListOfHealthInfoDto,
+  ): Promise<ResponseInterface> {
     try {
+      const order =
+        listHealthInfoDto.orderfield === ''
+          ? {}
+          : { [listHealthInfoDto.orderfield]: listHealthInfoDto.order };
       const getHealthInfo: HealthInfoInterface[] =
         await this.smeHealthCheckModel.find({
           relations: ['smeHealthCheckImages'],
-          order: { id: 'DESC' },
-          take: listHealthInfoDto.take,
-          skip: listHealthInfoDto.skip,
+          order,
+          take: listHealthInfoDto.take
+            ? parseInt(listHealthInfoDto.take)
+            : null,
+          skip: listHealthInfoDto.skip
+            ? parseInt(listHealthInfoDto.skip)
+            : null,
         });
 
       return handelResponse({
